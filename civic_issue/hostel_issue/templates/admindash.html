@@ -1,0 +1,241 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civic Problem Tracker - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="{% static 'admin.css' %}">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <div class="logo-box"></div> 
+            <div class="header-titles">
+                <h1>Admin Dashboard</h1>
+                <p>Manage hostel civic issues</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="admin-info">
+                <span>Admin User</span>
+                <strong>Administrator</strong>
+            </div>
+            <div class="avatar"></div>
+            <a href="{% url 'logout' %}" title="Logout" style="color: #666; text-decoration: none; margin-left: 15px;">
+                <i class="fa-solid fa-arrow-right-from-bracket" style="cursor: pointer; font-size: 18px;"></i>
+            </a>
+        </div>
+    </header>
+
+    <main class="container">
+    {% csrf_token %}
+        
+        <section class="stats-grid">
+            <div class="card card-blue">
+                <i class="fa-solid fa-users" style="font-size: 20px; opacity: 0.8; margin-bottom: 5px;"></i>
+                <h2>{{ total_users }}</h2>
+                <span>Total Users</span>
+            </div>
+            <div class="card card-orange">
+                <h2>{{ total_issues }}</h2>
+                <span>Total Issues</span>
+            </div>
+            <div class="card card-yellow">
+                <h2>{{ pending_count }}</h2>
+                <span>Pending</span>
+            </div>
+            <div class="card card-blue">
+                <h2>{{ in_progress_count }}</h2>
+                <span>In Progress</span>
+            </div>
+            <div class="card card-green">
+                <h2>{{ resolved_count }}</h2>
+                <span>Resolved</span>
+            </div>
+        </section>
+
+        <section class="filters">
+            <form method="get" id="admin-filter-form">
+                <div class="filter-group">
+                    <label>Category</label>
+                    <select name="category" class="filter-select" id="admin-category-select">
+                    
+                        <option value="All Category" {% if selected_category == 'All Category' %}selected{% endif %}>All Category</option>
+                        <option value="Water" {% if selected_category == 'Water' %}selected{% endif %}>Water</option>
+                        <option value="Security" {% if selected_category == 'Security' %}selected{% endif %}>Security</option>
+                        <option value="Maintenance" {% if selected_category == 'Maintenance' %}selected{% endif %}>Maintenance</option>
+                        <option value="Electrical" {% if selected_category == 'Electrical' %}selected{% endif %}>Electrical</option>
+                        <option value="Plumbing" {% if selected_category == 'Plumbing' %}selected{% endif %}>Plumbing</option>
+                        <option value="Cleanliness" {% if selected_category == 'Cleanliness' %}selected{% endif %}>Cleanliness</option>
+                        <option value="Other" {% if selected_category == 'Other' %}selected{% endif %}>Other</option>
+
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Status</label>
+                    <select name="status" class="filter-select" id="admin-status-select">
+                        <option value="all" {% if selected_status == 'all' %}selected{% endif %}>All Status</option>
+                        <option value="Pending" {% if selected_status == 'Pending' %}selected{% endif %}>Pending</option>
+                        <option value="In Progress" {% if selected_status == 'In Progress' %}selected{% endif %}>In Progress</option>
+                        <option value="Resolved" {% if selected_status == 'Resolved' %}selected{% endif %}>Resolved</option>
+                    </select>
+                </div>
+            </form>
+        </section>
+
+        <section class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 35%;">Issue</th>
+                        <th>Category</th>
+                        <th>Location</th>
+                        <th>Reporter</th>
+                        <th>Upvotes</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for issue in issues %}
+                    <tr data-issue-id="{{ issue.id }}">
+                        <td>
+                            <div class="issue-cell">
+                                <h3>{{ issue.title }}</h3>
+                                <p>{{ issue.description }}</p>
+                                <span class="issue-date">{{ issue.created_at|date:"d M Y, h:i a" }}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="category-cell">
+                                <i class="fa-solid fa-{% if issue.category == 'Maintenance' %}screwdriver-wrench{% elif issue.category == 'Electrical' %}bolt{% elif issue.category == 'Plumbing' %}droplet{% else %}question{% endif %}" style="color:#6b7280;"></i> {{ issue.get_category_display }}
+                            </div>
+                        </td>
+                        <td>{{ issue.location }}</td>
+                        <td>
+                            <div class="reporter-info">{{ issue.reported_by.first_name }} {{ issue.reported_by.last_name }}</div>
+                        </td>
+                        <td><span class="upvote-badge">0</span></td>
+                        <td>
+                            <select class="status-select" data-issue-id="{{ issue.id }}">
+                                <option value="Pending" {% if issue.status == 'Pending' %}selected{% endif %}>Pending</option>
+                                <option value="In Progress" {% if issue.status == 'In Progress' %}selected{% endif %}>In Progress</option>
+                                <option value="Resolved" {% if issue.status == 'Resolved' %}selected{% endif %}>Resolved</option>
+                            </select>
+                        </td>
+                        <td>
+                            <div class="actions">
+                                <button class="action-btn btn-view" title="View Details"><i class="fa-regular fa-folder-open"></i></button>
+                                <button class="action-btn btn-edit" title="Edit Issue"><i class="fa-solid fa-pen"></i></button>
+                                <button class="action-btn btn-del" data-issue-id="{{ issue.id }}" title="Delete Issue"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script>
+        // Handle admin filters
+        document.getElementById('admin-category-select').addEventListener('change', function() {
+            document.getElementById('admin-filter-form').submit();
+        });
+        document.getElementById('admin-status-select').addEventListener('change', function() {
+            document.getElementById('admin-filter-form').submit();
+        });
+
+        // Handle status change
+        document.querySelectorAll('.status-select').forEach(select => {
+            select.addEventListener('change', function() {
+                const issueId = this.getAttribute('data-issue-id');
+                const newStatus = this.value;
+
+                fetch(`/update-status/${issueId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': getCSRFToken()
+                    },
+                    body: `status=${newStatus}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Update the visual status badge if needed
+                        console.log('Status updated successfully');
+                    } else {
+                        alert('Error updating status: ' + data.error);
+                        // Revert the select
+                        location.reload();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error updating status');
+                    location.reload();
+                });
+            });
+        });
+
+        // Handle delete action
+        document.querySelectorAll('.btn-del').forEach(button => {
+            button.addEventListener('click', function() {
+                const issueId = this.getAttribute('data-issue-id');
+                if (confirm('Are you sure you want to delete this issue?')) {
+                    fetch(`/delete-issue/${issueId}/`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'X-CSRFToken': getCSRFToken()
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Remove the row from the table
+                            this.closest('tr').remove();
+                            location.reload(); // Refresh to update stats
+                        } else {
+                            alert('Error deleting issue: ' + data.error);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error deleting issue');
+                    });
+                }
+            });
+        });
+
+        // Function to get CSRF token
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        // Get CSRF token from the hidden input
+        function getCSRFToken() {
+            const token = document.querySelector('[name=csrfmiddlewaretoken]');
+            return token ? token.value : getCookie('csrftoken');
+        }
+    </script>
+
+</body>
+</html>

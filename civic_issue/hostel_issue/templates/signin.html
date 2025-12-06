@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Civic Issues - Sign Up</title>
+    <link rel="stylesheet" href="{% static 'signin.css'   %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-card">
+            <div class="icon-box">
+                <i class="fas fa-clipboard-list"></i>
+            </div>
+            
+            <h1>Hostel Civic Issues</h1>
+            <p>Create an account to report issues.</p>
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="input-group">
+                    <label for="fullName">Full Name</label>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="fullName" name="fullName" placeholder="Enter your name" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <div class="input-field">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" name="email" placeholder="dem" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="hostelBlock">Hostel Block</label>
+                    <div class="input-field select-field">
+                        <i class="fas fa-building"></i>
+                        <select id="hostelBlock" name="hostelBlock" required>
+                            <option value="" disabled selected>Select your block</option>
+                            <option value="A">Block A</option>
+                            <option value="B">Block B</option>
+                            <option value="C">Block C</option>
+                            <option value="D">Block D</option>
+                        </select>
+                        <i class="fas fa-chevron-down select-arrow"></i>
+                    </div>
+                </div>
+
+                <div class="input-group checkbox-group">
+                    <label for="isAdmin" style="display: flex; align-items: center; gap: 8px;">
+                        <input type="checkbox" id="isAdmin" name="isAdmin" style="width: auto;">
+                        Make this user an Admin
+                    </label>
+                </div>
+
+                <button type="submit" class="signup-btn">Sign Up</button>
+            </form>
+            
+            <div class="login-text">
+                Already have an account? <a href="{% url 'login' %}">Login</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

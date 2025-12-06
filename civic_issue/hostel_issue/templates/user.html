@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Civic Issues</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{% static 'user.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="brand">
+            <div class="brand-icon"><i class="fa-regular fa-building"></i></div>
+            <div class="brand-text">
+                <h1>Hostel Civic Issues</h1>
+                <p>Report and track problems in your hostel</p>
+            </div>
+        </div>
+        <div class="user-actions">
+            <div class="user-info">
+                <strong>{{ request.user.first_name }}</strong>
+                <span>{% if user_profile %}{{ user_profile.get_hostel_block_display }}{% else %}Unknown{% endif %}</span>
+            </div>
+            <a href="{% url 'report' %}" class="btn-report-link">
+                <button class="btn-report">
+                    <i class="fa-solid fa-plus"></i> Report Issue
+                </button>
+            </a>
+            <a href="{% url 'logout' %}" title="Logout" style="color: #666; text-decoration: none;">
+                <i class="fa-solid fa-arrow-right-from-bracket" style="cursor: pointer;"></i>
+            </a>
+        </div>
+    </header>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-info">
+                <h3>Total Issues</h3>
+                <div class="count">{{ total_issues }}</div>
+            </div>
+            <div class="stat-icon icon-gray"><i class="fa-solid fa-circle-exclamation"></i></div>
+        </div>
+        <div class="stat-card" style="background-color: #FFFBEB;">
+            <div class="stat-info">
+                <h3 style="color: #92400E;">Pending</h3>
+                <div class="count" style="color: #92400E;">{{ pending }}</div>
+            </div>
+            <div class="stat-icon icon-yellow"><i class="fa-regular fa-clock"></i></div>
+        </div>
+        <div class="stat-card" style="background-color: #EFF6FF;">
+            <div class="stat-info">
+                <h3 style="color: #1E40AF;">In Progress</h3>
+                <div class="count" style="color: #1E40AF;">{{ in_progress }}</div>
+            </div>
+            <div class="stat-icon icon-blue"><i class="fa-solid fa-chart-line"></i></div>
+        </div>
+        <div class="stat-card" style="background-color: #ECFDF5;">
+            <div class="stat-info">
+                <h3 style="color: #065F46;">Resolved</h3>
+                <div class="count" style="color: #065F46;">{{ resolved }}</div>
+            </div>
+            <div class="stat-icon icon-green"><i class="fa-regular fa-circle-check"></i></div>
+        </div>
+    </div>
+
+    <div class="filters">
+        <form method="get" id="filter-form">
+            <div class="filter-group">
+                <label>Category</label>
+                <select id="category" name="category">
+                    <option value="All Category" {% if selected_category == 'All Category' %}selected{% endif %}>All Category</option>
+                    <option value="Water" {% if selected_category == 'Water' %}selected{% endif %}>Water</option>
+                    <option value="Security" {% if selected_category == 'Security' %}selected{% endif %}>Security</option>
+                    <option value="Maintenance" {% if selected_category == 'Maintenance' %}selected{% endif %}>Maintenance</option>
+                    <option value="Electrical" {% if selected_category == 'Electrical' %}selected{% endif %}>Electrical</option>
+                    <option value="Plumbing" {% if selected_category == 'Plumbing' %}selected{% endif %}>Plumbing</option>
+                    <option value="Cleanliness" {% if selected_category == 'Cleanliness' %}selected{% endif %}>Cleanliness</option>
+                    <option value="Other" {% if selected_category == 'Other' %}selected{% endif %}>Other</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Status</label>
+                <select name="status" id="status-select">
+                    <option value="all" {% if selected_status == 'all' %}selected{% endif %}>All Status</option>
+                    <option value="Pending" {% if selected_status == 'Pending' %}selected{% endif %}>Pending</option>
+                    <option value="In Progress" {% if selected_status == 'In Progress' %}selected{% endif %}>In Progress</option>
+                    <option value="Resolved" {% if selected_status == 'Resolved' %}selected{% endif %}>Resolved</option>
+                </select>
+            </div>
+        </form>
+    </div>
+
+    <div class="issue-list">
+        {% for issue in issues %}
+        <div class="issue-card">
+            <div class="content-section">
+                <div class="card-header">
+                    <h3>{{ issue.title }}</h3>
+                    <span class="status-badge status-{% if issue.status == 'In Progress' %}inprogress{% elif issue.status == 'Pending' %}pending{% else %}resolved{% endif %}">{{ issue.get_status_display }}</span>
+                </div>
+                <p class="description">{{ issue.description }}</p>
+                <div class="meta-data">
+                    <span class="category-tag tag-{{ issue.category|lower }}">
+                        <i class="fa-solid fa-{% if issue.category == 'Maintenance' %}screwdriver-wrench{% elif issue.category == 'Electrical' %}bolt{% elif issue.category == 'Plumbing' %}droplet{% else %}question{% endif %}"></i>
+                        {{ issue.get_category_display }}
+                    </span>
+                    <span><i class="fa-solid fa-location-dot"></i> {{ issue.location }}</span>
+                    <span><i class="fa-regular fa-user"></i> {{ issue.reported_by.first_name }}</span>
+                    <span><i class="fa-regular fa-calendar"></i> {{ issue.created_at|timesince }} ago</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+   document.getElementById('status-select').addEventListener('change', function() {
+       document.getElementById('filter-form').submit();
+   });
+   document.getElementById('category-select').addEventListener('change', function() {
+       document.getElementById('filter-form').submit();
+   });
+</script>
+
+</body>
+</html>

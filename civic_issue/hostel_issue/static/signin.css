@@ -1,0 +1,223 @@
+/* Basic Reset and Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    /* Background color similar to the image's light purple/blue background */
+    background-color: #f0f4f9; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* --- Container for the Sign Up Card --- */
+.signup-container {
+    padding: 20px;
+}
+
+/* --- The Main White Card --- */
+.signup-card {
+    background-color: #ffffff;
+    padding: 40px 30px; /* Adjusted padding for better fit */
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    width: 100%;
+    max-width: 380px; /* Setting a fixed width similar to the image */
+    text-align: center;
+}
+
+/* --- Header and Greeting Text --- */
+.signup-card h1 {
+    font-size: 20px;
+    color: #333333;
+    margin: 15px 0 5px 0;
+}
+
+.signup-card p {
+    font-size: 14px;
+    color: #666666;
+    margin-bottom: 30px;
+}
+
+/* --- Icon Styling (The Blue Box) --- */
+.icon-box {
+    width: 60px;
+    height: 60px;
+    background-color: #3b82f6; /* Blue color */
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 15px auto; /* Center the icon */
+}
+
+.icon-box i {
+    font-size: 30px;
+    color: #ffffff; /* White icon color */
+}
+
+/* --- Input Group Styling (Label + Input Field) --- */
+.input-group {
+    text-align: left; /* Align labels to the left */
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block; /* Make label take full width */
+    font-size: 14px;
+    color: #333333;
+    font-weight: bold;
+    margin-bottom: 8px; /* Space between label and input */
+}
+
+.input-field {
+    display: flex;
+    align-items: center;
+    border: 1px solid #d1d5db; /* Light gray border */
+    border-radius: 8px;
+    padding: 10px 15px;
+    background-color: #f9fafb; /* Very light background for input */
+}
+
+.input-field i {
+    color: #9ca3af; /* Icon color (light gray) */
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.input-field input,
+.input-field select {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    font-size: 16px;
+    background-color: transparent; /* Match the parent's background */
+    color: #333333;
+    width: 100%; /* Ensure input takes full width within its container */
+    padding: 0; /* Remove default padding for input/select */
+    -webkit-appearance: none; /* Remove default select arrow for custom arrow */
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* Placeholder text color */
+.input-field input::placeholder,
+.input-field select option[disabled]:first-child { /* For placeholder in select */
+    color: #9ca3af;
+}
+
+/* Style for the select dropdown */
+.select-field {
+    position: relative; /* For custom arrow positioning */
+}
+
+.select-field select {
+    cursor: pointer;
+}
+
+/* Custom arrow for select dropdown */
+.select-field .select-arrow {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Allow clicks to pass through to the select */
+    color: #9ca3af;
+}
+
+/* --- Sign Up Button Styling --- */
+.signup-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #3b82f6; /* Blue color */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px; /* Space above button */
+}
+
+.signup-btn:hover {
+    background-color: #2563eb; /* Slightly darker blue on hover */
+}
+
+/* --- Login Text and Link --- */
+.login-text {
+    margin-top: 25px;
+    font-size: 14px;
+    color: #666666;
+}
+
+.login-text a {
+    color: #3b82f6; /* Blue link color */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-text a:hover {
+    text-decoration: underline;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 480px) {
+    .signup-container {
+        padding: 10px;
+    }
+
+    .signup-card {
+        padding: 30px 20px;
+        max-width: 100%;
+    }
+
+    .signup-card h1 {
+        font-size: 18px;
+    }
+
+    .signup-card p {
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+
+    .icon-box {
+        width: 50px;
+        height: 50px;
+    }
+
+    .icon-box i {
+        font-size: 25px;
+    }
+
+    .input-group {
+        margin-bottom: 15px;
+    }
+
+    .input-group label {
+        font-size: 13px;
+    }
+
+    .input-field {
+        padding: 8px 12px;
+    }
+
+    .input-field i {
+        font-size: 16px;
+    }
+
+    .input-field input,
+    .input-field select {
+        font-size: 15px;
+    }
+
+    .signup-btn {
+        padding: 10px;
+        font-size: 15px;
+    }
+
+    .login-text {
+        font-size: 13px;
+    }
+}

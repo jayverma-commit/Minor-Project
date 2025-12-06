@@ -1,0 +1,177 @@
+/* Basic Reset and Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    /* Background color similar to the image's light purple/blue background */
+    background-color: #f0f4f9; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* --- Container for the Login Card --- */
+.login-container {
+    padding: 20px;
+}
+
+/* --- The Main White Card --- */
+.login-card {
+    background-color: #ffffff;
+    padding: 40px 30px; /* Adjusted padding for better fit */
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    width: 100%;
+    max-width: 380px; /* Setting a fixed width similar to the image */
+    text-align: center;
+}
+
+/* --- Header and Greeting Text --- */
+.login-card h1 {
+    font-size: 20px;
+    color: #333333;
+    margin: 15px 0 5px 0;
+}
+
+.login-card p {
+    font-size: 14px;
+    color: #666666;
+    margin-bottom: 30px;
+}
+
+/* --- Icon Styling (The Blue Box) --- */
+.icon-box {
+    width: 60px;
+    height: 60px;
+    background-color: #3b82f6; /* Blue color */
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 15px auto; /* Center the icon */
+}
+
+.icon-box i {
+    font-size: 30px;
+    color: #ffffff; /* White icon color */
+}
+
+/* --- Input Field Grouping --- */
+.input-group {
+    display: flex;
+    align-items: center;
+    border: 1px solid #d1d5db; /* Light gray border */
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    background-color: #f9fafb; /* Very light background for input */
+}
+
+.input-group i {
+    color: #9ca3af; /* Icon color (light gray) */
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.input-group input {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    font-size: 16px;
+    background-color: transparent; /* Match the parent's background */
+    color: #333333;
+}
+
+/* Placeholder text color */
+.input-group input::placeholder {
+    color: #9ca3af;
+}
+
+/* --- Login Button Styling --- */
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #3b82f6; /* Blue color */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 5px;
+}
+
+.login-btn:hover {
+    background-color: #2563eb; /* Slightly darker blue on hover */
+}
+
+/* --- Sign Up Text and Link --- */
+.signup-text {
+    margin-top: 25px;
+    font-size: 14px;
+    color: #666666;
+}
+
+.signup-text a {
+    color: #3b82f6; /* Blue link color */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-text a:hover {
+    text-decoration: underline;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 10px;
+    }
+
+    .login-card {
+        padding: 30px 20px;
+        max-width: 100%;
+    }
+
+    .login-card h1 {
+        font-size: 18px;
+    }
+
+    .login-card p {
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+
+    .icon-box {
+        width: 50px;
+        height: 50px;
+    }
+
+    .icon-box i {
+        font-size: 25px;
+    }
+
+    .input-group {
+        padding: 8px 12px;
+        margin-bottom: 15px;
+    }
+
+    .input-group i {
+        font-size: 16px;
+    }
+
+    .input-group input {
+        font-size: 15px;
+    }
+
+    .login-btn {
+        padding: 10px;
+        font-size: 15px;
+    }
+
+    .signup-text {
+        font-size: 13px;
+    }
+}
