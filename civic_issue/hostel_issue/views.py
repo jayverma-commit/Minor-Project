@@ -1,5 +1,5 @@
 
-#  This the Views file all project are control for this file
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
@@ -50,14 +50,14 @@ def signin(request):
         is_admin = request.POST.get('isAdmin') == 'on'
 
         if not User.objects.filter(email=email).exists():
-            
+
             user = User.objects.create_user(username=email, email=email, password=password)
             user.first_name = full_name
             if is_admin:
                 user.is_staff = True
                 user.is_superuser = True
             user.save()
-            
+
             UserProfile.objects.create(user=user, hostel_block=hostel_block)
             return redirect('login')
         else:
@@ -186,7 +186,7 @@ def report(request):
         description = request.POST.get('description')
         category = request.POST.get('category')
         location = request.POST.get('location')
-        # name = request.POST.get('name')  # Not needed since we have request.user
+
 
         Issue.objects.create(
             title=title,

@@ -12,6 +12,7 @@ class UserProfile(models.Model):
         ('C', 'Block C'),
         ('D', 'Block D'),
     ])
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
 
 class UserLoginLog(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

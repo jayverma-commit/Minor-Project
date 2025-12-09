@@ -152,7 +152,7 @@ header {
 
 /* TABLE */
 .table-wrapper {
-    background-color: #fffbfb;
+    background-color:rgb(255, 255, 255);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.02);
     overflow: hidden;
@@ -166,7 +166,7 @@ table {
 }
 
 thead {
-    background-color: #f9fafb;
+    background-color: #e5eaf0;
     border-bottom: 1px solid var(--border-color);
 }
 
