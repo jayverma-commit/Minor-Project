@@ -1,5 +1,4 @@
 
-
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
@@ -87,6 +86,20 @@ def user(request):
     except UserProfile.DoesNotExist:
         user_profile = None
     all_issues = Issue.objects.filter(reported_by=request.user)
+    notifications = []
+    for issue in all_issues.order_by('-created_at'):
+        if issue.status == 'In Progress':
+            notifications.append({
+                'message': f'Your issue "{issue.title}" is in progress.',
+                'type': 'info',
+                'issue': issue
+            })
+        elif issue.status == 'Resolved':
+            notifications.append({
+                'message': f'Your issue "{issue.title}" has been resolved.',
+                'type': 'success',
+                'issue': issue
+            })
     context = {
         'issues': issues,
         'user_profile': user_profile,
@@ -96,6 +109,7 @@ def user(request):
         'pending': all_issues.filter(status='Pending').count(),
         'in_progress': all_issues.filter(status='In Progress').count(),
         'resolved': all_issues.filter(status='Resolved').count(),
+        'notifications': notifications,
     }
     return render(request,'user.html', context)
 
