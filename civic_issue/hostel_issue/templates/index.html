@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Issue Portal</title>
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <i class="fa-regular fa-building"></i>
+            <span>Hostel Issue Portal</span>
+        </div>
+        <div class="nav-buttons">
+            <a href="{% url 'login' %}" class="btn btn-login">Login</a>
+            <a href="{% url 'signin' %}" class="btn btn-signup">Sign Up</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <div class="hero-icon-box">
+                <i class="fa-solid fa-file-lines"></i>
+            </div>
+            <h1>Hostel Civic Issue Management</h1>
+            <p class="subtitle">
+                Ek simple aur effective platform hostel ke sabhi issues report karne aur track karne ke liye.<br>
+                Maintenance se lekar cleanliness tak, sab kuch ek jagah manage karein.
+            </p>
+            <a href="{% url 'login' %}" class="btn btn-dark">Get Started</a>
+        </section>
+
+        <section class="features">
+            <div class="card">
+                <div class="icon-circle bg-red">
+                    <i class="fa-solid fa-circle-exclamation text-red"></i>
+                </div>
+                <h3>Issue Report Karein</h3>
+                <p>Hostel mein koi bhi problem ho - maintenance, electricity, plumbing - turant report karein with details aur priority.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon-circle bg-blue">
+                    <i class="fa-regular fa-clock text-blue"></i>
+                </div>
+                <h3>Real-time Tracking</h3>
+                <p>Apne reported issues ka status track karein - pending, in-progress, ya resolved. Har update instantly dekhein.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon-circle bg-green">
+                    <i class="fa-regular fa-circle-check text-green"></i>
+                </div>
+                <h3>Quick Resolution</h3>
+                <p>Issues ko organize karke priority ke basis pe resolve karein. Sabse important problems pehle solve ho.</p>
+            </div>
+        </section>
+
+        <section class="steps-box">
+            <h2>Kaise Use Karein?</h2>
+            <div class="steps-row">
+                <div class="step">
+                    <div class="step-circle">1</div>
+                    <h3>Report Issue</h3>
+                    <p>Problem ka title, category, location aur description enter karein</p>
+                </div>
+                <div class="step">
+                    <div class="step-circle">2</div>
+                    <h3>Track Status</h3>
+                    <p>Issue ka status check karein - pending, in-progress, ya resolved</p>
+                </div>
+                <div class="step">
+                    <div class="step-circle">3</div>
+                    <h3>Get Resolved</h3>
+                    <p>Issue resolve hone par notification milega aur status update hoga</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>

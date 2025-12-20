@@ -12,7 +12,10 @@ from .models import UserProfile, Issue
 
 
 
-def home(request):
+def index(request):
+    return render(request, 'index.html')
+
+def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -37,7 +40,6 @@ def home(request):
         else:
             return HttpResponse("Invalid Credentials")
             
-    return render(request, 'login.html')
     return render(request, 'login.html')
 
 def signin(request):
